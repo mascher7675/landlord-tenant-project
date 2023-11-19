@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.landlord-button-container,
+.create-room-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/*
+.landlord-button-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    right: 5%;
+}
+
+
+.create-room-container {
+    display: flex;
+    margin-bottom: 20px;
+    left: 5%
+}*/
+
+
+
+.small-landlord-button {
+    width: 150px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.landlord-button {
+    width: 300px;
+    margin: 50px;
+    padding: 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-room-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-room-container label {
+    margin: 5px 0;
+}
+
+.create-room-container input {
+    width: 200px;
+    padding: 10px;
+    margin: 5px 0;
+}

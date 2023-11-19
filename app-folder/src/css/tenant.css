@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tenant-button {
+    width: 300px;
+    margin: 20px;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4c6faf;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.small-button {
+    width: 150px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4c6faf;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
