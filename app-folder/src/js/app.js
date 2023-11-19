@@ -17,17 +17,17 @@ const deedTokenContract = new web3.eth.Contract(deedTokenABI, deedTokenAddress);
 const buildingTokenContract = new web3.eth.Contract(buildingTokenABI, buildingTokenAddress);
 
 async function setBuildingContractAddresses() {
-    try {
-        // Set Building Contract Address for ERC20
-        await rentTokenContract.methods.setBuildingContractAddress().send({ from: accounts[0] });
+    // try {
+    //     // Set Building Contract Address for ERC20
+    //     //await rentTokenContract.methods.setBuildingContractAddress().send({ from: accounts[0] });
 
-        // Set Building Contract Address for ERC721
-        await deedTokenContract.methods.setBuildingContractAddress().send({ from: accounts[0] });
+    //     // Set Building Contract Address for ERC721
+    //     //await deedTokenContract.methods.setBuildingContractAddress().send({ from: accounts[0] });
 
-        console.log('Building Contract Addresses Set');
-    } catch (error) {
-        console.error('Error setting Building Contract Addresses:', error);
-    }
+    //     console.log('Building Contract Addresses Set');
+    // } catch (error) {
+    //     console.error('Error setting Building Contract Addresses:', error);
+    // }
 }
 
 module.exports = {

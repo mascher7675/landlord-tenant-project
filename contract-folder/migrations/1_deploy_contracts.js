@@ -1,14 +1,17 @@
-const DeedToken = artifacts.require("DeedToken");
-const RentToken = artifacts.require("RentToken");
-const BuildingToken = artifacts.require("BuildingToken");
+var DeedToken = artifacts.require("DeedToken.sol");
+var RentToken = artifacts.require("RentToken");
+var BuildingToken = artifacts.require("BuildingToken");
 
-module.exports = async function (deployer) {
+module.exports =  function (deployer) {
   // Deploy DeedToken
-  await deployer.deploy(DeedToken);
-
+  deployer.deploy(DeedToken, {overwrite:true}).then(
+    ()=>{
+    return deployer.deploy(RentToken,{overwrite:true}).then(
+      ()=>{
+      return deployer.deploy(BuildingToken, RentToken.address, DeedToken.address,{overwrite:true})
+          }
+      ).catch((error)=>{console.log(error)})}
+    ).catch((error)=>{console.log(error)})
   // Deploy RentToken, passing the address of DeedToken
-  await deployer.deploy(RentToken, DeedToken.address);
-
   // Deploy BuildingToken, passing the addresses of RentToken and DeedToken
-  await deployer.deploy(BuildingToken, RentToken.address, DeedToken.address);
 };

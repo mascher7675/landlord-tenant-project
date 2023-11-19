@@ -6,21 +6,14 @@ Since transactions have to be approved within the contract they are created in
 (So like approving a erc20 transaction must be done in an erc20 contract)
 Before doing a transaction please approve it in the respective contract
 */
-pragma solidity ^0.8.20;
+pragma solidity >=0.4.22 <0.9.0;
 
-    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-    import "@openzeppelin/contracts/access/Ownable.sol";
-    import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-    import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-    import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
-    import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-    import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
-    import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+   
 
 
-contract RentToken is ERC20, Ownable, ERC20Burnable {
+contract RentToken is ERC20, Ownable {
     //Data-------------------------------------------------------------------------------------------------------------------
         uint    private tokens_per_wei = 1;
         address private contractOwner;
