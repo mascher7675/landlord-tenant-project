@@ -22,7 +22,7 @@ let App = {
 
     populateAddress: async function () {
         try {
-            const userAccounts = await App.web3.eth.getAccounts();
+            const userAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             App.accounts = userAccounts;
             console.log("User Accounts:", userAccounts);
           } catch (error) {
@@ -2014,16 +2014,11 @@ let App = {
 
 App.init()
 
-let DeedToken = App.DeedToken
-let RentToken = App.RentToken
-let BuildingToken = App.BuildingToken
-let web3 = App.web3
-let accounts = App.accounts
-
-module.exports = {
-    web3,
-    BuildingToken,
-    DeedToken,
-    RentToken,
-    accounts
-}
+window.ethereum.on("accountsChanged", () => {
+    App.populateAddress();
+  });
+  
+  /* Detect when the network on metamask is changed */
+  window.ethereum.on("chainChanged", () => {
+    App.populateAddress();
+  });
