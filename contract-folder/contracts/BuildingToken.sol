@@ -25,9 +25,6 @@ contract BuildingToken is ERC1155, Ownable {
             string public name = "RoomTokens";
             string public symbol = "RTK";
 
-
-
-
         //Building Tracking
             uint256[]                       public  Buildings;
             uint256[]                       private Buildings_available;
@@ -43,24 +40,15 @@ contract BuildingToken is ERC1155, Ownable {
             mapping (address => bool)       private tenant_in_room_available;
             mapping (uint256 => address[])  private room_to_tenant;
             mapping (address => uint256)    private tenant_to_room;
-
-
-
-
         //Payment
             mapping (address => uint)       private amountDue;
             mapping (uint256 => uint)       private rentAmount;
-            mapping (address => uint)       private tenantLate;
-
-
-
-
     //Modifiers-------------------------------------------------------------------------------------------------------------------
         //Checks if the landlord owns the Deed of the house
         modifier ownsLand(uint256 _land){
             require(deedToken.checkOwner(_land) == msg.sender);
             _;
-        }
+            }
         //Checks if the deedID already exists
         modifier UniqueBuildingExists(uint256 _id){
             bool within = false;
@@ -71,11 +59,7 @@ contract BuildingToken is ERC1155, Ownable {
             }
             require(within);
             _;
-        }
-
-
-
-
+            }
         //Checks if the landlord is interacting with his tenant
         modifier isLandlordofTenant(uint256 _roomid){
             bool within = false;
@@ -84,103 +68,62 @@ contract BuildingToken is ERC1155, Ownable {
                     within=true;
                 }
             }
-
-
-
-
             require(deedToken.ownerOf(room_to_building[_roomid]) == msg.sender && within);
             _;
-        }
-
-
-
-
+            }
         //Checks if tenant is linked to the room
         modifier tenantInRoom(uint256 _id){
             require(balanceOf(msg.sender, _id) > 0);
             _;
-        }
-
-
-
-
+            }
         //Checks if the tenant has enough balance
         modifier enoughBalance(address _user, uint _amount){
             require(rentToken.balanceOf(_user) >= _amount);
             _;
-        }
-
-
-
-
+            }
         //Checks for non negative values
         modifier non_negative(uint _amount){
             require(_amount > 0);
             _;
-        }
+            }
 
+    //Events-------------------------------------------------------------------------------------------------------------------
 
-
-
+        event MoneyRequested(address _from, uint256 _to);
     //Functions-------------------------------------------------------------------------------------------------------------------
         constructor(address _rentToken, address _deedToken) ERC1155("") Ownable(msg.sender) {
             rentToken = RentToken(_rentToken);
             deedToken = DeedToken(_deedToken);
-            rentToken.setBuildingContractAddress();
-            deedToken.setBuildingContractAddress();
+            // rentToken.setBuildingContractAddress();
+            // deedToken.setBuildingContractAddress();
             contractOwner = msg.sender;
-
-
             }
-
-
         //_________________________________Rent Function_________________________________
-
-
-
-
             //Charge Fees to a single room
             function chargeFee(address _tenant, uint amount) public ownsLand(room_to_building[tenant_to_room[_tenant]]) non_negative(amount){
                 amountDue[_tenant] += amount;
-            }
-
-
-
-
+                }
             //Charge rent to all people in a single building
             function chargeRentinBuilding(uint256 building) private ownsLand(building){
                 for(uint i; i < buildings_to_rooms[building].length;i++){           //For each room in the building
                     address[] memory _tenants = room_to_tenant[buildings_to_rooms[building][i]];    
                     for(uint j; j < _tenants.length;j++){         //For each tenant linked to roomID
-                        if(amountDue[_tenants[j]] > 0){                       //If amount due is greater than 0, increase lateness
-                            tenantLate[_tenants[j]] += 1;
-                        }
                         amountDue[_tenants[j]] += rentAmount[buildings_to_rooms[building][i]];
                     }
                 }
-            }
-
-
-
+                }
 
             //Charge rent to all properties the messenger owns
             function chargeRentAllBuildings() public{
                 for(uint i; i < owner_to_lands[msg.sender].length;i++){
                     chargeRentinBuilding(owner_to_lands[msg.sender][i]);
                 }
-            }
-
-
-
-
+               }
             //Changes the amount of rent linked to a room
-            function changeRent(uint256 _id, uint _rentAmount) public ownsLand(_id){
+            function changeRent(uint256 _id, uint _rentAmount) private ownsLand(_id){
                 rentAmount[_id] = _rentAmount;
-            }
-
-
-
-
+                emit MoneyRequested(msg.sender,_id);
+                }
             //Pay the rent in tokens
             function singlePayRent(uint _amount) public payable enoughBalance(msg.sender,_amount) non_negative(_amount){
                 address _tenant = msg.sender;
@@ -196,122 +139,54 @@ contract BuildingToken is ERC1155, Ownable {
                     rentToken.transferFrom(_tenant,_landlord, _amount);
                     amountDue[_tenant] -= _amount;
                 }
-            }
-
-
-
-
-
-
-
-
+                }
         //_________________________________Viewing Info Functions_________________________________
-
-
-
-
             //Check your rent
             function viewRent (uint256 _room) public view returns(uint){
                 return rentAmount[_room];
-            }
-
-
-
-
+                }
             //Check the amount due
             function viewDue (address _tenant) public view returns(uint){
                 return amountDue[_tenant];
-            }
-
-
-
-
-            //Check the amount of payments they missed
-            function viewLateness(address _tenant) public view returns(uint){
-                return tenantLate[_tenant];
-            }
-
-
-
-
+                }
             //View rooms associated to Building
             function viewRooms(uint256 _building) public view returns(uint256[] memory){
                 return buildings_to_rooms[_building];
-            }
-
-
-
-
+                }
             //View amount of rent tokens for an address
             function viewBalance(address _tenant) public view returns(uint){
                 return rentToken.balanceOf(_tenant);
-            }
-
-
-
-
+                }
             //View all the buildings
             function viewBuildings() public view  returns(uint256[] memory){
                 return Buildings;
-            }
-
-
-
-
+                }
             //View all unlinked buildings
             function viewBuildingsAvailable() public view returns(uint256[] memory){
                 return Buildings_available;
-            }
-
-
-
-
+                }
             //View all buildings owned
             function viewBuildingsOwned() public view returns(uint256[] memory){
                 return owner_to_lands[msg.sender];
-            }
-
-
-
-
+                }
             //view tenants linked to room
             function viewTenantswithRoom(uint _room) public view returns(address[] memory){
                 return room_to_tenant[_room];
-            }
-
-
-
+                }
             function viewAvailableRooms (uint256 roomID) public view returns(uint256){
-                return building_to_rooms_available[room_to_building[roomID]][roomID];
-}
-
-
-
-
+                return building_to_rooms_available[room_to_building[roomID]][roomID];}
         //_________________________________Token Creation Functions_________________________________
-
-
-
-
             function createDeed() public onlyOwner{
                 Buildings.push(deedToken.nextTokenId());
                 Buildings_assigned[deedToken.nextTokenId()] == false;
                 Buildings_available.push(deedToken.nextTokenId());
                 deedToken.safeMint(msg.sender);
-            }
-
-
-
-
+                }
             function buyRentTokens() public payable  {
                 require(msg.sender.balance >= msg.value);
                 rentToken.buyRentTokens(msg.value,msg.sender);
-            }
-
-
-
-
-            function createRooms(uint256 deed, uint256 id, uint256 amount, uint _rentAmount) public ownsLand(deed){
+                }
+            function createRooms(uint256 deed, uint256 id, uint256 amount, uint _rentAmount)public ownsLand(deed){
                 require(room_to_building[id] == 0x0 || room_to_building[id] == deed);
                 _mint(msg.sender,id,amount,"");
                 if(room_to_building[id] != deed){
@@ -320,16 +195,8 @@ contract BuildingToken is ERC1155, Ownable {
                 building_to_rooms_available[deed][id] += amount;
                 room_to_building[id] = deed;
                 rentAmount[id] = _rentAmount;
-            }
-
-
-
-
+                }
         //_________________________________Token Transfer Functions_________________________________
-
-
-
-
             //Assigns a deed to a address
             function assignDeed(uint256 _deedId, address _to) public onlyOwner{
                 for(uint i; i < owner_to_lands[_to].length;i++){
@@ -343,29 +210,23 @@ contract BuildingToken is ERC1155, Ownable {
                         delete Buildings_available[i];
                     }
                 }
-                if(deedToken.ownerOf(_deedId) != msg.sender) {  
-                    require(deedToken.isApprovedForAll(_to, address(this)),"Please Request Approval");
-                    deedToken.safeTransferFrom(msg.sender, _to, _deedId);}
+                require(deedToken.isApprovedForAll(_to, address(this)),"Please Request Approval");
+                sendAllRoomTokensToLandlord(_deedId,_to);
+                deedToken.safeTransferFrom(msg.sender, _to, _deedId);
                 land_to_owner[_deedId] = _to;
                 owner_to_lands[_to].push(_deedId);
-            }
+                    
+                }
 
-
-
-
-            //Sends
             function sendDeedToContractOwner(uint256 _deedId) public ownsLand(_deedId){
                 require(deedToken.isApprovedForAll(msg.sender, address(this)),"Please Request Approval");
+                sendAllRoomTokensToLandlord(_deedId,contractOwner);
                 removeFromOwned(_deedId);
                 deedToken.safeTransferFrom(msg.sender, contractOwner, _deedId);
                 Buildings_assigned[_deedId]=false;
                 Buildings_available[_deedId-1]=(_deedId);
-                land_to_owner[_deedId] = address(0);
-            }
-
-
-
-
+                land_to_owner[_deedId] = address(contractOwner);
+                }
             function removeFromOwned(uint256 _id) private ownsLand(_id){
                 bool backing = false;
                 if(owner_to_lands[msg.sender][owner_to_lands[msg.sender].length - 1] == _id){
@@ -383,9 +244,7 @@ contract BuildingToken is ERC1155, Ownable {
                         owner_to_lands[msg.sender].pop();
                     }
                 }
-            }
-
-
+                }
             function assignTenant(address tenant, uint256 roomID) public ownsLand(room_to_building[roomID]){
                 uint rooms_available = building_to_rooms_available[room_to_building[roomID]][roomID];
                 if (rooms_available > 0){
@@ -398,8 +257,6 @@ contract BuildingToken is ERC1155, Ownable {
                     }
                 }
            
-
-
             function deleteFromRoom(address _tenant, uint256 room) private{
                 bool backing = false;
                 if(room_to_tenant[room][room_to_tenant[room].length - 1] == _tenant){
@@ -417,17 +274,31 @@ contract BuildingToken is ERC1155, Ownable {
                         room_to_tenant[room].pop();
                     }
                 }
-            }
+                }
+            function refundRoom(uint256 roomID) public tenantInRoom(roomID) {
+                    address landLord = land_to_owner[room_to_building[roomID]];
+                    safeTransferFrom(msg.sender,landLord, roomID,1,"");
+                    building_to_rooms_available[room_to_building[roomID]][roomID] += 1;
+                    delete tenant_to_room[msg.sender];
+                    deleteFromRoom(msg.sender,roomID);
+                }
+
+            function sendAllRoomTokensToLandlord(uint256 buildingId,address _to) private{
+                uint256[] memory temp = buildings_to_rooms[buildingId];
+                address[] memory a = new address[](1);
+                uint[] memory amounts = new uint[](temp.length);
+                a[0] = msg.sender;
+                for(uint i; i < temp.length; i++){
+                    amounts[i] = building_to_rooms_available[buildingId][temp[i]];
+                    }
+                if(temp.length != 0){
+                safeBatchTransferFrom(msg.sender,_to,temp,amounts,"0x0");
+                }
+                }
+            }       
+    
+   
 
 
 
 
-           function refundRoom(uint256 roomID) public tenantInRoom(roomID) {
-                address landLord = land_to_owner[room_to_building[roomID]];
-                safeTransferFrom(msg.sender,landLord, roomID,1,"");
-                building_to_rooms_available[room_to_building[roomID]][roomID] += 1;
-                delete tenant_to_room[msg.sender];
-                deleteFromRoom(msg.sender,roomID);
-           }
-       
-    }
