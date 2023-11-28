@@ -1,4 +1,4 @@
-const {web3,accounts,deedTokenContract,buildingTokenContract} = import('./app.js')
+import {App} from "./app.js";
 
 
 document.addEventListener('DOMContentLoaded', async function () {

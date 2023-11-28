@@ -1,4 +1,4 @@
-const {web3,accounts,buildingTokenContract} = import('./app.js');
+import {App} from "./app.js";
 
 
 
