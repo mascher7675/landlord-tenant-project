@@ -1,4 +1,7 @@
-const { web3, accounts, rentTokenContract, buildingTokenContract } = import('./app.js');
+import {App} from "./app.js";
+
+console.log(App.buildingTokenAddress)
+
 
 document.addEventListener('DOMContentLoaded', async function () {
 

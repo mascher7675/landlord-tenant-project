@@ -2022,3 +2022,5 @@ window.ethereum.on("accountsChanged", () => {
   window.ethereum.on("chainChanged", () => {
     App.populateAddress();
   });
+
+export {App}
