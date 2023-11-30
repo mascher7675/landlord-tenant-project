@@ -4,9 +4,9 @@ let App = {
     BuildingToken: {},
     DeedToken: {},
     RentToken: {},
-    rentTokenAddress :'0xDdf09AE2b08BDcAD12866099D104c20865353B36',
-    deedTokenAddress :'0x0EaE83452DEcC2f325201FaA9A46fd1A59eFA27e',
-    buildingTokenAddress :'0x39E5c3163CA98DaD914e86491413cA0E38333D16',
+    rentTokenAddress :'0x724E84f375Cfa67590757B75C4EE2d297216BaFD',
+    deedTokenAddress :'0x09dE58D5fedC52A21e7afcD4EE973E4f0F6bAa68',
+    buildingTokenAddress :'0x492a1bD99932B767C6AEC41623958d98e4Ed05F7',
     accounts: null,     
 
     init: function () {
