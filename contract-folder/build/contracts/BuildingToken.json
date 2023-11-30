@@ -36252,12 +36252,12 @@
         }
       },
       "links": {},
-      "address": "0x00775C80e00D07C55c4C02dEB0F7B3C58A46A9EC",
-      "transactionHash": "0xe9421c77b454e58093cda8cee2c2aae44593429ef6aa052a659fd8d20271e8aa"
+      "address": "0x060f9199642e6c6DCb69f9FC2e8eEB4bA08c73Fd",
+      "transactionHash": "0x58648bbd913a70e84516fe9227997272225629ee51d04c4b68ebf6d00285b057"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2023-11-30T04:36:31.980Z",
+  "updatedAt": "2023-11-30T22:37:59.392Z",
   "networkType": "ethereum",
   "devdoc": {
     "errors": {

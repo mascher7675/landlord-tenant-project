@@ -1,6 +1,6 @@
 import {App} from "./app.js";
 
-console.log(App.buildingTokenAddress)
+console.log(App.contracts)
 
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     viewDueButton.addEventListener('click', async function () {
         try {
-            const amountDue = await buildingTokenContract.methods.viewDue(accounts[0]).call();
+            const amountDue = await App.contracts.BuildingToken.methods.viewDue(App.accounts[0]).call();
             alert('Amount Due: ' + amountDue);
         } catch (error) {
             alert('Error viewing amount due: ' + error.message);
