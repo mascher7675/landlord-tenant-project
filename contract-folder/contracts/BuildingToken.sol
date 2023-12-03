@@ -94,8 +94,8 @@ contract BuildingToken is ERC1155, Ownable {
         constructor(address _rentToken, address _deedToken) ERC1155("") Ownable(msg.sender) {
             rentToken = RentToken(_rentToken);
             deedToken = DeedToken(_deedToken);
-            // rentToken.setBuildingContractAddress();
-            // deedToken.setBuildingContractAddress();
+            rentToken.setBuildingContractAddress();
+            deedToken.setBuildingContractAddress();
             contractOwner = msg.sender;
             }
         //_________________________________Rent Function_________________________________
