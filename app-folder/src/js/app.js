@@ -2,9 +2,9 @@ let App = {
     web3: null,
     url: "https://127.0.0.1:7545",
     contracts: {},
-    rentTokenAddress :'0x75e23E2ab7AEa40539380F62C7577de27bC09ee8',
-    deedTokenAddress :'0xDFbB647044a9d0bdd10634C898668683e43570c1',
-    buildingTokenAddress :'0x060f9199642e6c6DCb69f9FC2e8eEB4bA08c73Fd',
+    rentTokenAddress :'0xBA2053a3D7824147C49dC3d24CEfDf43a39174Cf',
+    deedTokenAddress :'0x4F6c0af265977f78b19C48e18667E64B5d4fe44E',
+    buildingTokenAddress :'0xC1b0745AA4f0Ab114958Be86c1D5194A9fbe4B96',
     accounts: null,     
 
     init: function () {

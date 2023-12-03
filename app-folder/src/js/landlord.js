@@ -1,13 +1,15 @@
 import {App} from "./app.js";
 
-
-
 document.addEventListener('DOMContentLoaded', async function () {
 
     const createRoomForm = document.querySelector('.create-room-container form');
     const viewRoomsButton = document.getElementById('view-rooms');
+    //const viewOwnedRoomsButton = document.getElementById('view-owned-rooms');
     const sendDeedBackButton = document.getElementById('send-deed-back');
     const chargeRentButton = document.getElementById('charge-rent');
+    const viewBalanceButton = document.getElementById('view-balance');
+    const approveDeedButton = document.getElementById('approve-deed');
+
 
     createRoomForm.addEventListener('submit', async function (event) {
         event.preventDefault();
@@ -18,8 +20,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         const roomRentAmount = document.getElementById('roomRentAmount').value;
 
         try {
-            await buildingTokenContract.methods.createRooms(deedNumber, roomId, roomAmount, roomRentAmount).send({
-                from: accounts[0],
+            await App.contracts.BuildingToken.methods.createRooms(deedNumber, roomId, roomAmount, roomRentAmount).send({
+                from: App.accounts[0],
                 gas: 3000000,
             });
             alert('Room created successfully!');
@@ -28,15 +30,27 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     });
 
+    approveDeedButton.addEventListener('click', async function () {
+        try {
+            await App.contracts.DeedToken.methods.requestApproval().send({
+                from: App.accounts[0],
+                gas: 3000000, // adjust gas limit based on your contract deployment
+            });
+            alert('Deed created successfully!');
+        } catch (error) {
+            alert('Error creating deed: ' + error.message);
+        }
+    });
+
     viewRoomsButton.addEventListener('click', async function () {
         try {
-            const buildings = await buildingTokenContract.methods.viewBuildingsOwned().call({
-                from: accounts[0],
+            const buildings = await App.contracts.BuildingToken.methods.viewBuildingsOwned().call({
+                from: App.accounts[0],
             });
     
             const roomsPromises = buildings.map(async (buildingId) => {
-                return await buildingTokenContract.methods.viewRooms(buildingId).call({
-                    from: accounts[0],
+                return await App.contracts.BuildingToken.methods.viewRooms(buildingId).call({
+                    from: App.accounts[0],
                 });
             });
     
@@ -49,12 +63,33 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     });
 
+    /*viewRoomsButton.addEventListener('click', async function () {
+        try {
+            const buildings = await App.contracts.BuildingToken.methods.viewBuildingsOwned().call({
+                from: App.accounts[0],
+            });
+    
+            const roomsPromises = buildings.map(async (buildingId) => {
+                return await App.contracts.BuildingToken.methods.viewRooms(buildingId).call({
+                    from: App.accounts[0],
+                });
+            });
+    
+            const roomsArrays = await Promise.all(roomsPromises);
+            const allRooms = [].concat(...roomsArrays);
+    
+            alert('Rooms owned: ' + allRooms.join(', '));
+        } catch (error) {
+            alert('Error viewing rooms: ' + error.message);
+        }
+    });*/
+
     sendDeedBackButton.addEventListener('click', async function () {
         try {
-            const deedId = document.getElementById('deedID').value;
+            const deedId = document.getElementById('sendDeedBack').value;
             if (deedId) {
-                await buildingTokenContract.methods.sendDeedToContractOwner(deedId).send({
-                    from: accounts[0],
+                await App.contracts.BuildingToken.methods.sendDeedToContractOwner(deedId).send({
+                    from: App.accounts[0],
                     gas: 3000000, // adjust gas limit based on your contract deployment
                 });
 
@@ -69,14 +104,25 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     chargeRentButton.addEventListener('click', async function () {
         try {
-            await buildingTokenContract.methods.chargeRentAllBuildings().send({
-                from: accounts[0],
+            await App.contracts.BuildingToken.methods.chargeRentAllBuildings().send({
+                from: App.accounts[0],
                 gas: 3000000, // adjust gas limit based on your contract deployment
             });
 
             alert('Rent charged to all buildings owned successfully!');
         } catch (error) {
             alert('Error charging rent: ' + error.message);
+        }
+    });
+
+    viewBalanceButton.addEventListener('click', async function () {
+        try {
+            const result = await App.contracts.RentToken.methods.balanceOf(App.accounts[0]).call();
+            const resultInEther = web3Client.utils.fromWei(result, "ether");
+
+            alert('Balance: ' + resultInEther)
+        } catch (error) {
+            alert('Error viewing tokens: ' + error.message);
         }
     });
 });
