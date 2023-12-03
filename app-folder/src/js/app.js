@@ -2,9 +2,9 @@ let App = {
     web3: null,
     url: "https://127.0.0.1:7545",
     contracts: {},
-    rentTokenAddress :'0x3a5dE2f0b9A87a2542416335F97984097d0054A3',
-    deedTokenAddress :'0x4F6c0af265977f78b19C48e18667E64B5d4fe44E',
-    buildingTokenAddress :'0xD54874623DEfdfC048b186f7361963D8Be6AcD83',
+    rentTokenAddress :'0x1B3081Bf6275eE1a3909b82D7AFa47cfbb6fE8AF',
+    deedTokenAddress :'0x5DDE8901667D46BC1DDA5d0b97Ae631A8f892AF8',
+    buildingTokenAddress :'0x49c04E9267AA63d844794ebB48FC7656689b9AAC',
     accounts: null,     
 
     init: function () {
@@ -1658,6 +1658,13 @@ let App = {
                 ],
                 "name": "Transfer",
                 "type": "event"
+            },
+            {
+                "inputs": [],
+                "name": "BuyRentTokens",
+                "outputs": [],
+                "stateMutability": "payable",
+                "type": "function"
             },
             {
                 "inputs": [

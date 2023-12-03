@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     buyTokensButton.addEventListener('click', async function () {
         const tokenAmount = document.getElementById('tokenAmount').value;
         try {
-            await App.contracts.RentToken.methods.buyRentTokens(tokenAmount, App.accounts[0]).send({
+            await App.contracts.RentToken.methods.BuyRentTokens().send({
                 from: App.accounts[0],
                 value: tokenAmount * 1e18, // convert to Wei
                 gas: 3000000, // adjust gas limit based on your contract deployment
