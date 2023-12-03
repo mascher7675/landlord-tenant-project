@@ -18,11 +18,13 @@
         </div>
 
         <div class="deed-container">
-            <label for="sendDeed-i">Deed ID:</label>
-            <input type="number" id="sendDeed-id" placeholder="Enter id">
-            <label for="sendDeed-a">Receiver Address:</label>
-            <input type="number" id="sendDeed-address" placeholder="Enter Address">
-            <button class="small-button" type="submit" id="send-deed">Assign Deed</button>
+            <form>
+                <label for="sendDeed-i">Deed ID:</label>
+                <input type="number" id="sendDeed-id" placeholder="Enter id">
+                <label for="sendDeed-a">Receiver Address:</label>
+                <input id="sendDeed-address" placeholder="Enter Address">
+                <button class="small-button" type="submit" id="send-deed">Assign Deed</button>
+            </form>
         </div>
 
         <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>

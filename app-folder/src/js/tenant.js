@@ -74,7 +74,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     viewBalanceButton.addEventListener('click', async function () {
         try {
             const result = await App.contracts.RentToken.methods.balanceOf(App.accounts[0]).call();
-            const resultInEther = web3Client.utils.fromWei(result, "ether");
+            const resultInEther = App.web3.utils.fromWei(result, "ether");
+            alert('Current Balance: ' + resultInEther)
+
         } catch (error) {
             alert('Error viewing tokens: ' + error.message);
         }
