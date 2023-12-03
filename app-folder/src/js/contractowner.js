@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const createDeedButton = document.getElementById('create-deed');
     const viewDeedsButton = document.getElementById('view-deeds');
-    const sendDeedForm = document.querySelector('.deed-container');
+    const sendDeedForm = document.querySelector('.deed-container form');
+    //const sendDeedForm = document.getElementById('send-deed');
     const approveDeedButton = document.getElementById('approve-deed');
+    //const assignDeed = document
 
     approveDeedButton.addEventListener('click', async function () {
         try {
