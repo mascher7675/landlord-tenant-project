@@ -10,32 +10,45 @@
 
     <h1>Welcome, Tenant!</h1>
 
-    <div class="button-container">
-        <button class="tenant-button" type="submit" id="view-due">View Amount Due</button>
-    </div>
+    <hr>
 
-    <div class="send-room-back-container">
-        <label for="sendRoomBack">Enter Room ID:</label>
-        <input type="number" id="sendRoomBack" placeholder="Enter Room ID">
-        <button class="small-button" type="submit" id="send-room-back">Send Room Back</button>
-    </div>
+    <div class="dashboard-container">
+        <div class="column">
+            <div class="button-container">
+                <button class="tenant-button" type="submit" id="view-due">View Amount Due</button>
+            </div>
+            <div class="button-container">
+                <button class="tenant-button" type="submit" id="view-balance">View Balance</button>
+            </div>
+        </div>
 
-    <div class="payment-container">
-        <label for="validateAmount">Validate before Paying:</label>
-        <input type="number" id="validateAmount" placeholder="Enter amount">
-        <button class="small-button" type="submit" id="validate-erc20">Validate</button>
-    </div>
+        <div class="column">
+            <div class="payment-container">
+                <label for="rentAmount">Pay Rent:</label>
+                <input type="number" id="rentAmount" placeholder="Enter amount">
+                <button class="small-button" type="submit" id="submit-payment">Submit Payment</button>
+            </div>
 
-    <div class="payment-container">
-        <label for="rentAmount">Pay Rent:</label>
-        <input type="number" id="rentAmount" placeholder="Enter amount">
-        <button class="small-button" type="submit" id="submit-payment">Submit Payment</button>
-    </div>
+            <div class="payment-container">
+                <label for="validateAmount">Validate before Paying:</label>
+                <input type="number" id="validateAmount" placeholder="Enter amount">
+                <button class="small-button" type="submit" id="validate-erc20">Validate</button>
+            </div>
+        </div>
 
-    <div class="payment-container">
-        <label for="tokenAmount">Buy ERC20 Tokens:</label>
-        <input type="number" id="tokenAmount" placeholder="Enter amount">
-        <button class="small-button" type="submit" id="buy-tokens">Buy Tokens</button>
+        <div class="column">
+            <div class="payment-container">
+                <label for="tokenAmount">Buy ERC20 Tokens:</label>
+                <input type="number" id="tokenAmount" placeholder="Enter amount">
+                <button class="small-button" type="submit" id="buy-tokens">Buy Tokens</button>
+            </div>
+
+            <div class="send-room-back-container">
+                <label for="sendRoomBack">Enter Room ID:</label>
+                <input type="number" id="sendRoomBack" placeholder="Enter Room ID">
+                <button class="small-button" type="submit" id="send-room-back">Send Room Back</button>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
