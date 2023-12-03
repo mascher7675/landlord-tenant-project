@@ -14,6 +14,11 @@ body {
     padding: 30px;
 }
 
+hr {
+    width: 80%;
+    margin: 10px auto;
+}
+
 .owner-button {
     width: 200px;
     margin: 35px;

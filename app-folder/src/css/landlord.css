@@ -1,15 +1,42 @@
-body {
+/*body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
     display: flex;
     justify-content: space-between;
+}*/
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.header {
+    margin-top: 5px;
+}
+
+hr {
+    width: 80%;
+    margin: 10px auto;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    width: 60%; /* Adjust the width as needed */
+    margin-top: 20px;
+}
+
+.dashboard-column {
+    width: 100%;
 }
 
 
-.landlord-button-container,
 .create-room-container {
-    width: 50%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
