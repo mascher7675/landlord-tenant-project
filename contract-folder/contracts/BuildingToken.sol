@@ -94,8 +94,8 @@ contract BuildingToken is ERC1155, Ownable {
         constructor(address _rentToken, address _deedToken) ERC1155("") Ownable(msg.sender) {
             rentToken = RentToken(_rentToken);
             deedToken = DeedToken(_deedToken);
-            // rentToken.setBuildingContractAddress();
-            // deedToken.setBuildingContractAddress();
+            rentToken.setBuildingContractAddress();
+            deedToken.setBuildingContractAddress();
             contractOwner = msg.sender;
             }
         //_________________________________Rent Function_________________________________
@@ -182,10 +182,12 @@ contract BuildingToken is ERC1155, Ownable {
                 Buildings_available.push(deedToken.nextTokenId());
                 deedToken.safeMint(msg.sender);
                 }
+            
             function buyRentTokens() public payable  {
                 require(msg.sender.balance >= msg.value);
-                rentToken.buyRentTokens(msg.value,msg.sender);
+                rentToken.buyRentTokens(msg.value, msg.sender);
                 }
+            
             function createRooms(uint256 deed, uint256 id, uint256 amount, uint _rentAmount)public ownsLand(deed){
                 require(room_to_building[id] == 0x0 || room_to_building[id] == deed);
                 _mint(msg.sender,id,amount,"");

@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     viewDueButton.addEventListener('click', async function () {
         try {
+            console.log("user = ", App.accounts[0])
             const amountDue = await App.contracts.BuildingToken.methods.viewDue(App.accounts[0]).call();
             alert('Amount Due: ' + amountDue);
         } catch (error) {
@@ -26,8 +27,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const roomID = document.getElementById('sendRoomBack').value;
             if (roomID) {
                 await App.contracts.BuildingToken.methods.refundRoom(roomID).send({
-                    from: accounts[0],
-                    gas: 3000000, // adjust gas limit based on your contract deployment
+                    from: App.accounts[0],
                 });
     
                 alert('Room sent back successfully!');
@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         try {
             const amountToValidate = document.getElementById('validateAmount').value;
             if (amountToValidate) {
-                // add validation logic here
+                await App.contracts.RentToken.methods.requestApproval(amountToValidate).send({
+                    from: App.accounts[0]
+                })
                 alert('Validation successful!');
             } else {
                 alert('Please enter a valid amount to validate.');
@@ -56,10 +58,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     submitPaymentButton.addEventListener('click', async function () {
         try {
             const rentAmount = document.getElementById('rentAmount').value;
+
             if (rentAmount) {
                 await App.contracts.BuildingToken.methods.singlePayRent(rentAmount).send({
-                    from: App.accounts[0],
-                    gas: 3000000, // adjust gas limit based on your contract deployment
+                    from: App.accounts[0]
                 });
 
                 alert('Rent payment successful!');
@@ -85,10 +87,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     buyTokensButton.addEventListener('click', async function () {
         const tokenAmount = document.getElementById('tokenAmount').value;
         try {
-            await App.contracts.RentToken.methods.buyRentTokens(tokenAmount, App.accounts[0]).send({
+            await App.contracts.RentToken.methods.BuyRentTokens().send({
                 from: App.accounts[0],
-                value: tokenAmount * 1e18, // convert to Wei
-                gas: 3000000, // adjust gas limit based on your contract deployment
+                value: tokenAmount * 1e18
             });
             alert('Tokens purchased successfully!');
         } catch (error) {

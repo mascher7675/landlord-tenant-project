@@ -14,11 +14,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         try {
             await App.contracts.DeedToken.methods.requestApproval().send({
                 from: App.accounts[0],
-                gas: 3000000, // adjust gas limit based on your contract deployment
             });
-            alert('Deed created successfully!');
+            alert('Deed approved successfully!');
         } catch (error) {
-            alert('Error creating deed: ' + error.message);
+            alert('Error approved deed: ' + error.message);
         }
     });
 
@@ -26,7 +25,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         try {
             await App.contracts.BuildingToken.methods.createDeed().send({
                 from: App.accounts[0],
-                gas: 3000000, // adjust gas limit based on your contract deployment
             });
             alert('Deed created successfully!');
         } catch (error) {
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         try {
             await App.contracts.BuildingToken.methods.assignDeed(deedId, receiverAddress).send({
                 from: App.accounts[0],
-                gas: 3000000, // adjust gas limit based on your contract deployment
             });
             alert('Deed assigned successfully!');
         } catch (error) {

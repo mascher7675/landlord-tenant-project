@@ -34,6 +34,9 @@ hr {
     width: 100%;
 }
 
+.view-available-rooms-container {
+    margin-left: 1px;
+}
 
 .create-room-container {
     width: 30%;
@@ -42,6 +45,14 @@ hr {
     align-items: center;
 }
 
+.room-container form div {
+    margin-bottom: 100px;
+}
+
+.room-container form label {
+    display: block;
+    margin: 10px;
+}
 
 /*
 .landlord-button-container {
