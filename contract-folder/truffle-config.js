@@ -69,18 +69,11 @@ module.exports = {
       network_id: "*",       // Any network (default: none)
      },
      
-<<<<<<< HEAD
     sepolia: {
       provider: () => new HDWalletProvider(MNEMONIC, `https://sepolia.infura.io/v3/${PROJECT_ID}`),
       network_id: 11155111,       // sepolia's id
     },
-=======
-      sepolia: {
-        provider: () => new HDWalletProvider(MNEMONIC, `https://sepolia.infura.io/v3/${PROJECT_ID}`),
-        network_id: 11155111,       // sepolia's id
-        gas: 30000000,
-      },
->>>>>>> 81409e61bd29fd83754989bd8916902be61fec5c
+
     
     // An additional network, but with some advanced options…
     // advanced: {

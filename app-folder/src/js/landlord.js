@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const createRoomForm = document.querySelector('.create-room-container form');
     const viewRoomsButton = document.getElementById('view-rooms');
-    //const viewOwnedRoomsButton = document.getElementById('view-owned-rooms');
     const sendDeedBackButton = document.getElementById('send-deed');
     const viewTenantButton = document.getElementById('view-tenant')
     const chargeRentButton = document.getElementById('charge-rent');
@@ -12,6 +11,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const approveDeedButton = document.getElementById('approve-deed');
     const sendRoomForm = document.querySelector('.room-container form');
     const availableRoomsButton = document.getElementById('view-room-ability')
+    const viewDeedsButton = document.getElementById('view-deeds')
 
 
     createRoomForm.addEventListener('submit', async function (event) {
@@ -79,6 +79,18 @@ document.addEventListener('DOMContentLoaded', async function () {
             alert('Rooms owned: ' + allRooms.join(', '));
         } catch (error) {
             alert('Error viewing rooms: ' + error.message);
+        }
+    });
+
+    viewDeedsButton.addEventListener('click', async function () {
+        try {
+            const buildings = await App.contracts.BuildingToken.methods.viewBuildingsOwned().call({
+                from: App.accounts[0],
+            });
+    
+            alert('Buildings owned: ' + buildings);
+        } catch (error) {
+            alert('Error viewing deeds: ' + error.message);
         }
     });
 

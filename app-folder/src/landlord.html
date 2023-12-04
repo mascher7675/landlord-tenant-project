@@ -25,7 +25,7 @@
                     <label for="roomAmount">Room Amount:</label>
                     <input type="number" id="roomAmount" placeholder="Enter room amount" required>
                     <label for="roomRentAmount">Rent Amount:</label>
-                    <input type="number" id="roomRentAmount" placeholder="Enter rent amount" required>
+                    <input type="number" id="roomRentAmount" step="0.01" placeholder="Enter rent amount" required>
                     <button type="submit" class="small-landlord-button" id="create-room">Create Room</button>
                 </form>
             </div>
@@ -37,6 +37,7 @@
         </div>
 
         <div class="dashboard-column">
+            <button class="landlord-button" type="submit" id="view-deeds">View Buildings</button>
             <button class="landlord-button" type="submit" id="view-rooms">View Rooms</button>
             <button class="landlord-button" type="submit" id="charge-rent">Charge Rent to All Buildings Owned</button>
             <button class="landlord-button" type="submit" id="view-balance">View Balance</button>

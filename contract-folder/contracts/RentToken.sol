@@ -53,10 +53,6 @@ contract RentToken is ERC20, Ownable {
             approve(BuildingContract,_amount);
         }
 
-        function BuyRentTokens() payable public{
-            _mint(msg.sender,(msg.value * tokens_per_wei));
-        }
-
         //This is called in the ERC1155 contract and will allow anyone to buy Rent Tokens to trade
         function buyRentTokens(uint value, address _sender) external MustHaveBuildingContract OnlyBuildingToken {
             _mint(_sender,(value * tokens_per_wei));
