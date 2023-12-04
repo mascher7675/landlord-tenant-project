@@ -13347,7 +13347,11 @@
   },
   "networks": {},
   "schemaVersion": "3.4.16",
+<<<<<<< HEAD
   "updatedAt": "2023-12-04T00:58:51.129Z",
+=======
+  "updatedAt": "2023-12-03T21:37:18.083Z",
+>>>>>>> 81409e61bd29fd83754989bd8916902be61fec5c
   "devdoc": {
     "details": "Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including the Metadata extension, but not including the Enumerable extension, which is available separately as {ERC721Enumerable}.",
     "errors": {

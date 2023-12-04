@@ -2743,7 +2743,11 @@
   },
   "networks": {},
   "schemaVersion": "3.4.16",
+<<<<<<< HEAD
   "updatedAt": "2023-12-04T00:58:51.158Z",
+=======
+  "updatedAt": "2023-12-03T21:37:18.092Z",
+>>>>>>> 81409e61bd29fd83754989bd8916902be61fec5c
   "devdoc": {
     "details": "Collection of functions related to array types.",
     "kind": "dev",
